@@ -18,7 +18,7 @@ class JobController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_job_show')]
+    #[Route('/{id}', name: 'app_job_show', requirements: ['id' => '\d+'])]
     public function show(Offre $offre): Response
     {
         return $this->render('job/show.html.twig', [
