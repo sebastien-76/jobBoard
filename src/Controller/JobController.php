@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Offre;
+use App\Form\OffreType;
 use App\Repository\OffreRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,6 +26,26 @@ class JobController extends AbstractController
     {
         return $this->render('job/show.html.twig', [
             'offre' => $offre,
+        ]);
+    }
+
+    #[Route('/new', name: 'app_job_new')]
+    public function new(Request $request, EntityManagerInterface $em): Response
+    {
+        $offre = new Offre();
+
+        $form = $this->createForm(OffreType::class, $offre);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($offre);
+            $em->flush();
+
+            return $this->redirectToRoute('app_job_show', ['id' => $offre->getId()]);
+        }
+
+        return $this->render('job/new.html.twig', [
+            'form' => $form,
         ]);
     }
 }
