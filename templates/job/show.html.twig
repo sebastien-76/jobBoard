@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Job board
-{% endblock %}
+{% block title %}Job board{% endblock %}
 
 {% block body %}
 	<div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-4">
-		<h1 class="text-4xl text-center">Job Board</h1>
+		<h1 class="text-4xl text-center">{{ offre.nom }}</h1>
 	</div>
 
 	<div class="container mx-auto px-4">
-		{% for offre in offres %}
-			{% include 'job/_offre.html.twig' %}
-		{% endfor %}
+		{% include 'job/_offre.html.twig' %}
+
 	</div>
 {% endblock %}
