@@ -1,4 +1,4 @@
-# Joabbord
+# Jobbaord
 
 Application de type job board
 
